@@ -17,7 +17,7 @@ export abstract class BasePublisher<T extends Events> {
     this.channel = await connection.createChannel();
   }
 
-  async publish(data: T["message"]): Promise<void> {
+  async publish(message: T["message"]): Promise<void> {
     if (!this.channel) {
       this.createChannel();
     }
@@ -29,7 +29,7 @@ export abstract class BasePublisher<T extends Events> {
     this.channel.publish(
       exchangeName,
       this.routingKey,
-      Buffer.from(JSON.stringify(data))
+      Buffer.from(JSON.stringify(message))
     );
 
     console.log(`${this.routingKey} emitted to exchange ${exchangeName}`);
