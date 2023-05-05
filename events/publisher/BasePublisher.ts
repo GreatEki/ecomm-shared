@@ -9,7 +9,11 @@ interface Events {
 export abstract class BasePublisher<T extends Events> {
   abstract routingKey: T["routingKey"];
 
-  protected channel: Channel;
+  channel: Channel;
+
+  constructor(channel: Channel) {
+    this.channel = channel;
+  }
 
   async createChannel() {
     const connection = await amqp.connect(process.env.RABBITMQ_URL!);
