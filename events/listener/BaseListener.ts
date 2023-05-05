@@ -9,7 +9,7 @@ interface Events {
 export abstract class BaseListener<T extends Events> {
   abstract routingKey: T["routingKey"];
   abstract QueueName: string;
-  abstract onMessage(data: T["message"]): void;
+  abstract onMessage(data: T["message"], msg: ConsumeMessage): void;
 
   protected channel: Channel;
 
@@ -35,8 +35,7 @@ export abstract class BaseListener<T extends Events> {
       console.log(
         `Message ${this.routingKey} received at ${serviceQueue.queue} `
       );
-      this.onMessage(this.parseMessage(msg));
-      this.channel.ack(msg);
+      this.onMessage(this.parseMessage(msg), msg);
     });
   }
 
