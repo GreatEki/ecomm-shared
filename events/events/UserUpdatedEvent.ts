@@ -1,7 +1,6 @@
 import { RoutingKey } from "../routing-keys";
-
 export interface UserUpdatedEvent {
-  routingKey: RoutingKey.UserCreated;
+  routingKey: RoutingKey.UserUpdated;
   message: {
     id: string;
     firstName: string;
